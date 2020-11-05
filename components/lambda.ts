@@ -16,7 +16,8 @@ export interface LambdaConstructProps {
     [key: string]: string;
   };
   readonly s3BucketArn?: string,
-  readonly s3Key?: string
+  readonly s3Key?: string,
+  readonly assetCodePath?: string
 }
 
 export class LambdaConstruct extends Construct {
@@ -62,6 +63,6 @@ export class LambdaConstruct extends Construct {
         props.s3Key!
       );
     }
-    return new lambda.AssetCode('lambdas');
+    return new lambda.AssetCode(props.assetCodePath!);
   }
 }

@@ -54,8 +54,10 @@ export class SmartConnectTestConnectorStack extends cdk.Stack {
         handler: 'lambda.Handler',
         runtime: lambda.Runtime.JAVA_8,
         isFromS3: true,
-        s3BucketArn: 'arn:aws:s3:::au-warehouse-integration-test-lambda-artifacts',
-        s3Key: 'd43053eec336311b1f1dbe1d04d9535b'
+        s3BucketArn: 'arn:aws:s3:::smart-connect-test-connector-lambda-bucket',
+        s3Key: '6b0c862751b96a76188c8cea6fd3c8b9'
+        // isFromS3: false,
+        // assetCodePath: 'resources/smart_connect_test_connector_java_lambda'
       }
     );
 
@@ -64,12 +66,13 @@ export class SmartConnectTestConnectorStack extends cdk.Stack {
       'DeployUpdatedLambdaFromS3',
       {
         role: iamConstruct.role,
-        lambdaName: 'S3DeployLambda',
+        lambdaName: 'DeployUpdatedLambdaFromS3',
         handler: 'deploy_updated_lambda_function.handler',
         runtime: lambda.Runtime.NODEJS_12_X,
         isFromS3: false,
+        assetCodePath:'resources/deploy_updated_lambda_function',
         environment: {
-          TARGET_LAMBDA_FUNCTION_NAME: 'AUWarehouseIntegrationTestConnectorLambda'
+          TARGET_LAMBDA_FUNCTION_NAME: lambdaConstruct.lambda.functionName
         }
       }
     );
@@ -86,6 +89,8 @@ export class SmartConnectTestConnectorStack extends cdk.Stack {
     );
     apiGatewayConstruct.addInventoriesResource(lambdaConstruct.lambda);
     apiGatewayConstruct.addOrderResource(lambdaConstruct.lambda);
+    apiGatewayConstruct.addPricesResource(lambdaConstruct.lambda);
+    apiGatewayConstruct.addEventsResource(lambdaConstruct.lambda);
   }
 }
 
