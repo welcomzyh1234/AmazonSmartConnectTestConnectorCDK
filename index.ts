@@ -31,7 +31,7 @@ export class SmartConnectTestConnectorStack extends cdk.Stack {
       'Amplify',
       {
         name: 'SmartConnectTestConnectorAmplifyApp',
-        repository: 'https://github.com/welcomzyh1234/AmazonSmartConnectTestConnector.git',
+        repository: 'https://github.com/welcomzyh1234/AmazonSmartConnectTestConnector',
         oauthToken: '645bb5afecc2be8c7c54b2d20acacb7a0ba4cc0d'
 
       }
@@ -53,11 +53,11 @@ export class SmartConnectTestConnectorStack extends cdk.Stack {
         lambdaName: 'SmartConnectTestConnectorLambda',
         handler: 'lambda.Handler',
         runtime: lambda.Runtime.JAVA_8,
-        isFromS3: true,
-        s3BucketArn: 'arn:aws:s3:::smart-connect-test-connector-lambda-bucket',
-        s3Key: '6b0c862751b96a76188c8cea6fd3c8b9'
-        // isFromS3: false,
-        // assetCodePath: 'resources/smart_connect_test_connector_java_lambda'
+        // isFromS3: true,
+        // s3BucketArn: 'arn:aws:s3:::smart-connect-test-connector-lambda-bucket',
+        // s3Key: '6b0c862751b96a76188c8cea6fd3c8b9'
+        isFromS3: false,
+        assetCodePath: 'resources/deploy_updated_lambda_function'
       }
     );
 
